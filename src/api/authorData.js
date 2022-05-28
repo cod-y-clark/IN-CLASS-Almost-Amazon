@@ -33,7 +33,11 @@ const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
 const updateAuthor = () => {};
 
 // TODO: GET A SINGLE AUTHOR'S BOOKS
-const getAuthorBooks = () => {};
+const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/books.json?orderBy="author_id"&equalTo="${firebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
 
 // FILTER FAVORITE AUTHORS
 const favAuthors = () => new Promise((resolve, reject) => {
