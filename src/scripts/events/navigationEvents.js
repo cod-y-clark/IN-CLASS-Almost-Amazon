@@ -1,36 +1,60 @@
 import { favAuthors, getAuthors } from '../../api/authorData';
 import { booksOnSale, getBooks } from '../../api/bookData';
-import { showAuthors } from '../components/pages/authors';
-import { showBooks } from '../components/pages/books';
+import { emptyBooks, showBooks } from '../components/pages/books';
 import signOut from '../helpers/auth/signOut';
+import { showAuthors, emptyAuthors } from '../components/pages/authors';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (uid) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
-  // DONE: BOOKS ON SALE
+  // BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    booksOnSale().then((saleBooksArray) => showBooks(saleBooksArray));
+    booksOnSale(uid).then((saleBooksArray) => {
+      if (saleBooksArray.length !== 0) {
+        showBooks(saleBooksArray);
+      } else {
+        emptyBooks(saleBooksArray);
+      }
+    });
   });
 
-  // DONE: ALL BOOKS
+  // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    getBooks().then((booksArray) => showBooks(booksArray));
+    getBooks(uid).then((booksArray) => {
+      if (booksArray.length !== 0) {
+        showBooks(booksArray);
+      } else {
+        emptyBooks(booksArray);
+      }
+    });
   });
 
-  // FIXME: STUDENTS Create an event listener for the Authors
+  // STUDENTS Create an event listener for the Authors
   // 1. When a user clicks the authors link, make a call to firebase to get all authors
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then((authorsArray) => showAuthors(authorsArray));
+    getAuthors(uid).then((authorsArray) => {
+      if (authorsArray.length !== 0) {
+        showAuthors(authorsArray);
+      } else {
+        emptyAuthors(authorsArray);
+      }
+    });
   });
 
   // FAVORITE AUTHORS
-  document.querySelector('#fav-authors').addEventListener('click', () => {
-    favAuthors().then((favAuthorsArray) => showAuthors(favAuthorsArray));
+  document.querySelector('#favorite-authors').addEventListener('click', () => {
+    favAuthors(uid).then((favAuthorsArray) => {
+      if (favAuthorsArray.length !== 0) {
+        showAuthors(favAuthorsArray);
+      } else {
+        emptyAuthors(favAuthorsArray);
+      }
+    });
   });
 
   // STRETCH: SEARCH

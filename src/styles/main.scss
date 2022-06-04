@@ -1,3 +1,4 @@
+
 @import "~bootstrap/scss/bootstrap";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -57,11 +58,6 @@ body {
     }
   }
 
-  .fav-badge {
-    background-color: gold;
-    color: black;
-  }
-
   #store {
     width: 90%;
     display: flex;
@@ -102,8 +98,22 @@ body {
   }
 }
 
-.book-card {
-  width: fit-content;
-  height: fit-content;
-  color: white;
+#favorites {
+  color: #DAA520;
+  size: 20px;
+}
+
+#view2 {
+  display: flex;
+  flex-flow: row wrap;
+  margin-left: 7%;
+}
+
+#authorBooksCard {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 20%;
+  max-height: 15%;
+  margin-left: 0.7%;
+  margin-top: 2%;
 }
